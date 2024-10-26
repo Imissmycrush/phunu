@@ -39,31 +39,49 @@
         /* Popup styling */
         .popup {
             position: absolute; /* Allow for absolute positioning */
-            width: 200px;
-            height: 100px;
+            width: 260px; /* Increased width */
+            height: 130px; /* Increased height */
             background-color: #ffcccc;
             color: #333;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
+            flex-direction: column; /* Stack text and button vertically */
+            justify-content: center; /* Center the text vertically */
+            align-items: center; /* Center the text horizontally */
+            font-size: 22px; /* Increased font size */
             font-weight: bold;
             border-radius: 8px;
             border: 1px solid #ff6699;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             opacity: 0.9; /* Slight transparency to see overlapping */
+            padding: 10px; /* Padding for better spacing */
+        }
+
+        .close-btn {
+            background-color: transparent; /* Transparent background */
+            color: #ff3399; /* Color matching the button */
+            border: none;
+            font-size: 24px; /* Font size for close button */
+            cursor: pointer;
+            position: absolute; /* Position absolutely */
+            top: 5px; /* Distance from the top */
+            right: 10px; /* Distance from the right */
+        }
+
+        .close-btn:hover {
+            text-decoration: underline; /* Underline on hover for close button */
         }
     </style>
 </head>
 <body>
 
     <!-- Button -->
-    <button class="button" onclick="showPopups()">Nhấn zô đi!!</button>
+    <button class="button" id="mainButton" onclick="showPopups()">Nhấn zô đi!!</button>
 
     <script>
         // Function to display popups one by one with a very short delay
         function showPopups() {
-            const popupCount = 500; // Display around 100 popups
+            const popupCount = 100; // Display around 100 popups
+            document.getElementById('mainButton').style.display = 'none'; // Hide the button when clicked
             for (let i = 0; i < popupCount; i++) {
                 setTimeout(() => {
                     createPopup();
@@ -75,11 +93,25 @@
         function createPopup() {
             const popup = document.createElement("div");
             popup.className = "popup";
-            popup.textContent = "Anh nhớ em!";
+            
+            // Create a span for the text to center it
+            const textSpan = document.createElement("span");
+            textSpan.textContent = "Anh nhớ em!";
+            popup.appendChild(textSpan);
+
+            // Close button (X) for the popup
+            const closeButton = document.createElement("button");
+            closeButton.className = "close-btn";
+            closeButton.textContent = "×"; // X character
+            closeButton.onclick = () => {
+                popup.remove(); // Remove the popup when close button is clicked
+            };
+
+            popup.appendChild(closeButton);
             
             // Generate random position
-            const top = Math.floor(Math.random() * (window.innerHeight - 100));
-            const left = Math.floor(Math.random() * (window.innerWidth - 200));
+            const top = Math.floor(Math.random() * (window.innerHeight - 130)); // Adjust for increased height
+            const left = Math.floor(Math.random() * (window.innerWidth - 260)); // Adjust for increased width
 
             popup.style.top = top + "px";
             popup.style.left = left + "px";
