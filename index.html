@@ -91,13 +91,10 @@
             const popup = document.createElement("div");
             popup.className = "popup";
             
-        const textLink = document.createElement("a");
-                textLink.textContent = "I Miss You 🧊!";
-                textLink.href = "https://youtu.be/ggXHJFCaVfg?si=Z6qhMabj_jnw2r-l";
-                textLink.target = "_blank";
-                textLink.style.color = "#333";
-                textLink.style.textDecoration = "none";
-            
+            const textSpan = document.createElement("span");
+            textSpan.textContent = "I Miss You 🧊!";
+            popup.appendChild(textSpan);
+
             const closeButton = document.createElement("button");
             closeButton.className = "close-btn";
             closeButton.textContent = "×";
