@@ -13,6 +13,7 @@
             height: 100vh;
             margin: 0;
             background: #f5f5f5;
+            overflow: hidden; /* Prevent scrolling */
         }
 
         /* Button styling */
@@ -26,6 +27,8 @@
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.2s;
+            position: absolute; /* Position button absolutely */
+            z-index: 1; /* Ensure button is above popups */
         }
 
         .button:hover {
@@ -73,19 +76,19 @@
             const popup = document.createElement("div");
             popup.className = "popup";
             popup.textContent = "Anh nhớ em!";
-            
+
             let top, left;
             let positionIsOccupied = true;
-            
+
             // Generate unique random position
             while (positionIsOccupied) {
                 top = Math.floor(Math.random() * (window.innerHeight - 100));
                 left = Math.floor(Math.random() * (window.innerWidth - 200));
-                
+
                 positionIsOccupied = occupiedPositions.some(pos => 
                     Math.abs(pos.top - top) < 100 && Math.abs(pos.left - left) < 200
                 );
-                
+
                 if (!positionIsOccupied) {
                     occupiedPositions.push({ top, left });
                 }
