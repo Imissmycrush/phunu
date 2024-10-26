@@ -91,10 +91,13 @@
             const popup = document.createElement("div");
             popup.className = "popup";
             
-            const textSpan = document.createElement("span");
-            textSpan.textContent = "I Miss You 🧊!";
-            popup.appendChild(textSpan);
-
+        const textLink = document.createElement("a");
+                textLink.textContent = "I Miss You 🧊!";
+                textLink.href = "https://www.example.com";
+                textLink.target = "_blank";
+                textLink.style.color = "#333";
+                textLink.style.textDecoration = "none";
+            
             const closeButton = document.createElement("button");
             closeButton.className = "close-btn";
             closeButton.textContent = "×";
