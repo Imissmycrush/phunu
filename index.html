@@ -15,6 +15,7 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
+            position: relative;
             overflow: hidden;
         }
         .button {
@@ -37,18 +38,15 @@
 
         .popup {
             position: absolute;
-            width: 40vw;
-            max-width: 260px;
-            height: 20vh;
-            max-height: 130px;
+            width: 260px;
+            height: 130px;
             background-color: #ffcccc;
             color: #333;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 4vw;
-            max-font-size: 22px;
+            font-size: 22px;
             font-weight: bold;
             border-radius: 8px;
             border: 1px solid #ff6699;
@@ -59,10 +57,9 @@
 
         .close-btn {
             background-color: transparent;
-            color: #ff3399;
+            color: #ff3399; 
             border: none;
-            font-size: 5vw;
-            max-font-size: 24px;
+            font-size: 24px;
             cursor: pointer;
             position: absolute;
             top: 5px;
@@ -81,8 +78,7 @@
 
     <script>
         function showPopups() {
-            const isMobile = window.innerWidth < 768;
-            const popupCount = isMobile ? 100 : 1000;
+            const popupCount = 1000;
             document.getElementById('mainButton').style.display = 'none';
             for (let i = 0; i < popupCount; i++) {
                 setTimeout(() => {
@@ -108,8 +104,8 @@
 
             popup.appendChild(closeButton);
             
-            const top = Math.floor(Math.random() * (window.innerHeight - popup.offsetHeight));
-            const left = Math.floor(Math.random() * (window.innerWidth - popup.offsetWidth));
+            const top = Math.floor(Math.random() * (window.innerHeight - 130));
+            const left = Math.floor(Math.random() * (window.innerWidth - 260));
 
             popup.style.top = top + "px";
             popup.style.left = left + "px";
