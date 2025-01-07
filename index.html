@@ -15,12 +15,12 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            position: relative;
             overflow: hidden;
         }
+
         .button {
-            padding: 15px 30px;
-            font-size: 20px;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: white;
             background-color: #ff3399;
@@ -28,8 +28,6 @@
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.2s;
-            position: absolute;
-            z-index: 10;
         }
 
         .button:hover {
@@ -38,20 +36,21 @@
 
         .popup {
             position: absolute;
-            width: 200px;
-            height: 100px;
+            width: 20%;
+            height: auto;
+            min-width: 150px;
+            max-width: 250px;
             background-color: #ffcccc;
             color: #333;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 18px;
+            font-size: 1.2rem;
             font-weight: bold;
             border-radius: 8px;
             border: 1px solid #ff6699;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            opacity: 0.9;
             padding: 10px;
         }
 
@@ -63,7 +62,7 @@
             background-color: transparent;
             color: #ff3399;
             border: none;
-            font-size: 20px;
+            font-size: 1.5rem;
             cursor: pointer;
             position: absolute;
             top: 5px;
@@ -77,18 +76,18 @@
         /* Responsive adjustments for small screens */
         @media (max-width: 768px) {
             .button {
-                font-size: 16px;
-                padding: 10px 20px;
+                font-size: 1.2rem;
+                padding: 0.8rem 1.5rem;
             }
 
             .popup {
-                width: 150px;
-                height: 80px;
-                font-size: 16px;
+                width: 80%;
+                min-width: 120px;
+                font-size: 1rem;
             }
 
             .close-btn {
-                font-size: 18px;
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -100,21 +99,21 @@
 
     <script>
         function showPopups() {
-            const popupCount = 50; // Giảm số lượng popup cho thiết bị nhỏ hơn
+            const popupCount = 1000; // Giảm số lượng popup cho thiết bị nhỏ
             document.getElementById('mainButton').style.display = 'none';
             for (let i = 0; i < popupCount; i++) {
                 setTimeout(() => {
                     createPopup();
-                }, i * 100); // Giãn thời gian để các popup không xuất hiện quá nhanh
+                }, i * 50);
             }
         }
 
         function createPopup() {
             const popup = document.createElement("div");
             popup.className = "popup";
-            
+
             const textSpan = document.createElement("span");
-            textSpan.textContent = "I Love You 🧊!";
+            textSpan.textContent = "I Hate You 😠!";
             popup.appendChild(textSpan);
 
             const closeButton = document.createElement("button");
@@ -125,12 +124,12 @@
             };
 
             popup.appendChild(closeButton);
-            
-            const top = Math.floor(Math.random() * (window.innerHeight - 100)); // Giảm kích thước popup
-            const left = Math.floor(Math.random() * (window.innerWidth - 200));
 
-            popup.style.top = top + "px";
-            popup.style.left = left + "px";
+            const top = Math.random() * (window.innerHeight - 150);
+            const left = Math.random() * (window.innerWidth - 150);
+
+            popup.style.top = `${top}px`;
+            popup.style.left = `${left}px`;
 
             document.body.appendChild(popup);
         }
