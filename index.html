@@ -36,17 +36,13 @@
 
         .popup {
             position: absolute;
-            width: 20%;
-            height: auto;
-            min-width: 150px;
-            max-width: 250px;
             background-color: #ffcccc;
             color: #333;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             border-radius: 8px;
             border: 1px solid #ff6699;
@@ -62,7 +58,7 @@
             background-color: transparent;
             color: #ff3399;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             cursor: pointer;
             position: absolute;
             top: 5px;
@@ -79,16 +75,6 @@
                 font-size: 1.2rem;
                 padding: 0.8rem 1.5rem;
             }
-
-            .popup {
-                width: 80%;
-                min-width: 120px;
-                font-size: 1rem;
-            }
-
-            .close-btn {
-                font-size: 1.2rem;
-            }
         }
     </style>
 </head>
@@ -99,8 +85,8 @@
 
 <script>
     function showPopups() {
-        const isMobile = window.innerWidth <= 768; // Kiểm tra thiết bị nhỏ
-        const popupCount = isMobile ? 30 : 1000; // Giảm popup cho thiết bị nhỏ
+        const isMobile = window.innerWidth <= 768; // Check for small devices
+        const popupCount = isMobile ? 30 : 1000; // Adjust popup count for mobile
         document.getElementById('mainButton').style.display = 'none';
         for (let i = 0; i < popupCount; i++) {
             setTimeout(() => {
@@ -126,23 +112,25 @@
 
         popup.appendChild(closeButton);
 
-        // Điều chỉnh vị trí và kích thước popup
-        const top = Math.random() * (window.innerHeight - (isMobile ? 80 : 150));
-        const left = Math.random() * (window.innerWidth - (isMobile ? 80 : 150));
+        // Calculate position and size of popup
+        const popupWidth = isMobile ? window.innerWidth * 0.3 : 150;
+        const popupHeight = isMobile ? window.innerHeight * 0.1 : 150;
+        popup.style.width = `${popupWidth}px`;
+        popup.style.height = `${popupHeight}px`;
+
+        const top = Math.random() * (window.innerHeight - popupHeight);
+        const left = Math.random() * (window.innerWidth - popupWidth);
 
         popup.style.top = `${top}px`;
         popup.style.left = `${left}px`;
 
         if (isMobile) {
-            popup.style.width = "60%"; // Giảm kích thước cho thiết bị nhỏ
-            popup.style.minWidth = "80px";
-            popup.style.fontSize = "0.8rem"; // Giảm font
+            popup.style.fontSize = "0.8rem"; // Smaller font for mobile
         }
 
         document.body.appendChild(popup);
     }
 </script>
-
 
 </body>
 </html>
