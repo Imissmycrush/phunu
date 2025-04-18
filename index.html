@@ -1,136 +1,309 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello cậu!</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: black;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Đảm bảo giao diện thích ứng với các kích thước màn hình -->
+  <title>Gương Thần & Lời Chúc Hôm Nay</title>
+  <style>
+    /* Đặt lại margin và padding mặc định */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .button {
-            padding: 1rem 2rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            background-color: #ff3399;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+    /* Cấu hình chung cho body */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+      background: #ffe3ec;
+      padding: 20px;
+      min-height: 100vh; /* Đảm bảo chiều cao đủ để phủ màn hình */
+      justify-content: center;
+      transition: background 0.5s;
+    }
 
-        .button:hover {
-            transform: scale(1.05);
-        }
+    h1 {
+      color: #d86ba3;
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-        .popup {
-            position: absolute;
-            background-color: #ffcccc;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            border: 1px solid #ff6699;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            padding: 10px;
-        }
+    .section {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 150, 200, 0.3);
+      padding: 20px;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
 
-        .popup span {
-            text-align: center;
-        }
+    .box {
+      min-height: 100px;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: #c94f7c;
+      line-height: 1.5;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
 
-        .close-btn {
-            background-color: transparent;
-            color: #ff3399;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            position: absolute;
-            top: 5px;
-            right: 10px;
-        }
+    /* Hiệu ứng fadeIn cho văn bản */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .close-btn:hover {
-            text-decoration: underline;
-        }
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: #ff98b4;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+      transition: background 0.3s;
+      width: 100%; /* Đảm bảo nút đầy đủ chiều rộng */
+      max-width: 300px; /* Giới hạn chiều rộng nút */
+      margin: 0 auto; /* Căn giữa nút */
+    }
 
-        /* Responsive adjustments for small screens */
-        @media (max-width: 768px) {
-            .button {
-                font-size: 1.2rem;
-                padding: 0.8rem 1.5rem;
-            }
-        }
-    </style>
+    button:hover {
+      background-color: #e37696;
+    }
+
+    /* Gương lấp lánh */
+    .sparkle {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+      background-size: 20px 20px;
+      animation: sparkle 2s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes sparkle {
+      from { background-position: 0 0; }
+      to { background-position: 20px 20px; }
+    }
+
+    /* Giao diện sáng/tối theo giờ */
+    body.light {
+      background: #fff2f8;
+    }
+
+    body.dark {
+      background: #1f1b24;
+    }
+
+    body.dark .section {
+      background: #2c2233;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark h1 {
+      color: #ffb3d1;
+    }
+
+    body.dark .box {
+      color: #ffbfd7;
+    }
+
+    body.dark button {
+      background-color: #ff6d9f;
+    }
+
+    body.dark button:hover {
+      background-color: #e85a89;
+    }
+
+    /* Responsive với các thiết bị nhỏ hơn */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .section {
+        padding: 15px;
+      }
+
+      .box {
+        font-size: 1rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 1.2rem;
+      }
+
+      .section {
+        padding: 10px;
+      }
+
+      .box {
+        font-size: 0.9rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 8px 16px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Button -->
-    <button class="button" id="mainButton" onclick="showPopups()">Nhấn zô đi!!</button>
+  <div class="section">
+    <div class="sparkle"></div>
+    <h1>🔮 Gương Thần</h1>
+    <div class="box" id="mirrorBox">
+      Bấm “Soi gương” để thấy điều kỳ diệu ✨
+    </div>
+    <button onclick="showMirrorMessage()">Soi gương</button>
+  </div>
 
-<script>
-    function showPopups() {
-        const isMobile = window.innerWidth <= 768; // Check for small devices
-        const popupCount = isMobile ? 900 : 1000; // Adjust popup count for mobile
-        document.getElementById('mainButton').style.display = 'none';
-        for (let i = 0; i < popupCount; i++) {
-            setTimeout(() => {
-                createPopup(isMobile);
-            }, i * 50);
+  <div class="section">
+    <h1>💌 Lời Chúc Hôm Nay</h1>
+    <div class="box" id="quoteBox">
+      Nhấn nút để nhận một lời chúc ngọt ngào 💖
+    </div>
+    <button onclick="showQuote()">Nhận lời chúc</button>
+  </div>
+
+  <br/>
+  <label for="voiceSelect">🎙️ Chọn giọng nói:</label>
+  <select id="voiceSelect"></select>
+
+  <script>
+    const mirrorMessages = [
+      "Người trong gương là người dễ thương nhất hôm nay.",
+      "Ai đẹp hơn hoa? Là người bạn đang nhìn nè!",
+      "Gương bảo rằng: bạn chính là ánh mặt trời nhỏ!",
+      "Không ai rạng rỡ hơn bạn lúc này đâu.",
+      "Gương thần nói: bạn đẹp theo cách rất riêng!",
+      "Nhìn vào gương đi, bạn thấy người mà ai cũng yêu quý đó!",
+      "Đẹp xinh như này, gương cũng phải gật gù khen ngợi!"
+    ];
+
+    const quotes = [
+      "Chúc bạn một ngày tràn đầy niềm vui và những điều ngọt ngào!",
+      "Hôm nay sẽ là một ngày thật tuyệt – vì bạn xứng đáng như thế!",
+      "Nụ cười của bạn là ánh nắng nhỏ trong lòng ai đó đấy.",
+      "Bạn đang làm rất tốt rồi, đừng quên tự khen mình nhé!",
+      "Gửi một cái ôm ảo tới bạn – chúc bạn luôn ấm áp và an yên.",
+      "Dù hôm nay thế nào, bạn vẫn là người tuyệt vời nhất.",
+      "Chúc bạn tìm thấy niềm vui ở những điều nhỏ xíu nhất.",
+      "Bạn mạnh mẽ hơn bạn nghĩ nhiều lắm đó!",
+      "Bạn là lý do khiến ai đó thấy cuộc đời đẹp hơn 💕",
+      "Gửi bạn một bó hoa tâm hồn – vì bạn xứng đáng được yêu thương."
+    ];
+
+    let voices = [];
+    let selectedVoice = null;
+    let isSpeaking = false; // Biến kiểm tra giọng có đang đọc không
+
+    // Load voice list
+    function loadVoices() {
+      voices = speechSynthesis.getVoices();
+      const select = document.getElementById("voiceSelect");
+      select.innerHTML = ""; // Clear
+
+      voices.forEach((voice, index) => {
+        if (voice.lang.startsWith("vi")) { // Chỉ lấy tiếng Việt
+          const option = document.createElement("option");
+          option.value = index;
+          option.textContent = `${voice.name} (${voice.lang})`;
+          select.appendChild(option);
         }
+      });
+
+      if (voices.length && select.options.length > 0) {
+        select.selectedIndex = 0;
+        selectedVoice = voices[select.value];
+      }
     }
 
-    function createPopup(isMobile) {
-        const popup = document.createElement("div");
-        popup.className = "popup";
+    speechSynthesis.onvoiceschanged = loadVoices;
 
-        const textSpan = document.createElement("span");
-        textSpan.textContent = "I Hate You 😠!";
-        popup.appendChild(textSpan);
+    document.getElementById("voiceSelect").addEventListener("change", function () {
+      selectedVoice = voices[this.value];
+    });
 
-        const closeButton = document.createElement("button");
-        closeButton.className = "close-btn";
-        closeButton.textContent = "×";
-        closeButton.onclick = () => {
-            popup.remove();
-        };
-
-        popup.appendChild(closeButton);
-
-        // Calculate position and size of popup
-        const popupWidth = isMobile ? window.innerWidth * 0.3 : 150;
-        const popupHeight = isMobile ? window.innerHeight * 0.1 : 150;
-        popup.style.width = `${popupWidth}px`;
-        popup.style.height = `${popupHeight}px`;
-
-        const top = Math.random() * (window.innerHeight - popupHeight);
-        const left = Math.random() * (window.innerWidth - popupWidth);
-
-        popup.style.top = `${top}px`;
-        popup.style.left = `${left}px`;
-
-        if (isMobile) {
-            popup.style.fontSize = "0.8rem"; // Smaller font for mobile
-        }
-
-        document.body.appendChild(popup);
+    function fadeInText(element, message) {
+      element.style.opacity = 0;
+      element.innerText = message;
+      element.classList.remove('box'); // reset animation
+      void element.offsetWidth; // trigger reflow
+      element.classList.add('box'); // re-add animation
     }
-</script>
+
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        const msg = new SpeechSynthesisUtterance(text);
+        msg.lang = 'vi-VN';
+        msg.rate = 1; // Tốc độ giọng nói
+        msg.pitch = 1.3; // Tăng pitch cho giọng dễ thương
+        if (selectedVoice) msg.voice = selectedVoice;
+        speechSynthesis.cancel(); // Dừng tất cả âm thanh cũ trước khi phát âm thanh mới
+        speechSynthesis.speak(msg); // Phát âm thanh
+      }
+    }
+
+    function showMirrorMessage() {
+      if (isSpeaking) return; // Nếu giọng nói đang đọc, không làm gì thêm
+
+      const box = document.getElementById('mirrorBox');
+      const randomText = mirrorMessages[Math.floor(Math.random() * mirrorMessages.length)];
+      
+      fadeInText(box, randomText); // Hiển thị tin nhắn
+
+      isSpeaking = true; // Đánh dấu là giọng đang đọc
+      speak(randomText); // Đọc tin nhắn
+
+      // Sau khi giọng nói hoàn thành, cho phép bấm nút tiếp
+      setTimeout(() => {
+        isSpeaking = false; // Đặt lại trạng thái để có thể bấm lại
+      }, 3000); // Thời gian chờ 3 giây (có thể chỉnh sửa theo ý muốn)
+    }
+
+    function showQuote() {
+      const box = document.getElementById('quoteBox');
+      const randomText = quotes[Math.floor(Math.random() * quotes.length)];
+      fadeInText(box, randomText);
+      speak(randomText);
+    }
+
+    // Giao diện sáng/tối theo giờ
+    const hour = new Date().getHours();
+    if (hour >= 18 || hour < 6) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.add('light');
+    }
+  </script>
 
 </body>
 </html>
